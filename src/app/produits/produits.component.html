@@ -1,0 +1,95 @@
+<div class="container">
+<div class="row">
+  <div class="col-md-6">
+    <div style="border: none;"class="panel panel-primary">
+      <div class="panel panel-heading">Ajouter produit</div>
+      <div class="panel-boby">
+    <form [formGroup]="produitForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="reference">REFERENCE:</label>
+        <input type="text"  readonly formControlName="reference" [ngClass]="{'is-valid':submitted && f.reference.errors}" class="form-control" placeholder="reference de produit"/>
+      <div *ngIf="submitted && f.reference.errors">
+          <div *ngIf="f.reference.errors.required">
+           <p>la reference est obligatoire</p>
+          </div>
+        </div>
+        </div>
+        <div class="form-group">
+          <label for="designation">DESIGNATION:</label>
+          <input type="text" formControlName="designation" [ngClass]="{'is-valid':submitted && f.designation.errors}" class="form-control" placeholder="la designation du produit"/>
+          <div *ngIf="submitted && f.designation.errors">
+            <div *ngIf="f.designation.errors.required">
+             <p>la designation est obligatoire</p>
+            </div>
+          </div>
+          </div>
+          <div class="form-group">
+            <label for="numero">PRIX:</label>
+            <input type="number" formControlName="prix" [ngClass]="{'is-valid':submitted && f.prix.errors}" class="form-control" placeholder="le prix "/>
+            <div *ngIf="submitted && f.prix.errors">
+              <div *ngIf="f.prix.errors.required">
+               <p>le prix est obligatoire</p>
+              </div>
+            </div>
+            </div>
+            <div class="form-group">
+              <label for="numero">ID_C:</label>
+              <select formControlName="id_c" [ngClass]="{'is-valid':submitted && f.id_c.errors}" class="form-control">
+                <option value="">select categorie</option>
+                <option *ngFor="let categorie of categories" value="{{categorie.id_c}}">{{categorie.nom}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+                <label for="quantite">QUANTITE:</label>
+                <input type="number" formControlName="quantite" [ngClass]="{'is-valid':submitted && f.quantite.errors}" class="form-control" placeholder="la quantite"/>
+                <div *ngIf="submitted && f.quantite.errors">
+                  <div *ngIf="f.quantite.errors.required">
+                   <p>la quantite est obligatoire</p>
+                  </div>
+                </div>
+                </div>
+                <button type="submit" class="btn btn-primary" *ngIf="btnAdd">Submit</button>
+                <button type="submit" class="btn btn-primary" *ngIf="btnEdit" (click)="onEdit()">Editer</button>
+
+
+      </form>
+    </div>
+  </div>
+</div>
+     <div class="col-md-6">
+    <div *ngIf="produits">
+    <table class="table">
+    <thead>
+      <tr>
+       <th scope="col">REFERENCE</th>
+        <th scope="col">DESIGNATION</th>
+        <th scope="col">ID_P</th>
+        <th scope="col">PRIX</th>
+        <th scope="col">QUANTITE</th>
+        <th scope="col">CATEGORIE</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="produits!=null">
+      <tr *ngFor="let item of produits">
+        <td>{{item.reference}}</td>
+        <td>{{item.designation}}</td>
+        <td>{{item.id_p}}</td>
+        <td>{{item.prix}}</td>
+        <td>{{item.quantite}}</td>
+        <td>{{item.nom}}</td>
+        <td>
+          <button class="btn btn-outline-primary" (click)="updateById(item)">Modifier</button>
+          <button class="btn btn-outline-danger" (click)="delete(item)">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+ </div>
+</div>
+</div>
+
+
+
+
+
